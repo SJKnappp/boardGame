@@ -9,4 +9,11 @@ struct board{
 	int sizey;
 };
 
+struct play{
+	int x;
+	int y;
+};
+
 void print(char player, board Board);
+play input(int xmax, int ymax);
+int menu();

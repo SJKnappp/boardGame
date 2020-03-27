@@ -24,7 +24,33 @@ void print(char player, board Board){
 		}
 		std::cout << std::endl << "  " << line << std::endl;
 	}
+	std::cout << std::endl;
 
+}
+
+play input(int xmax, int ymax){
+	play Play;
+	std::string move;
+	std::cin >> move;
+	bool check = true;
+	while(check ==true){
+		if(move.length() == 2){
+			Play.x = move.at(0)-97;
+			Play.y = move.at(1)-49;
+			if (Play.x >= 0 && Play.x < xmax && Play.y >=0 && Play.y < ymax){
+				break;
+			}
+		}else if(move.length() == 3){
+			Play.x = move.at(0)-97;
+			Play.y = 10*(move.at(1)-49) + move.at(2)-49;
+			if (Play.x >= 0 && Play.x < xmax && Play.y >=0 && Play.y < ymax){
+				break;
+			}
+		}
+		std::cout << "input failed please retry";
+		std::cin >> move;
+	}
+	return Play;
 }
 
 int menu(){
@@ -37,7 +63,7 @@ int menu(){
 }
 
 int main(){
-
+	
 	board Board;
 	Board = setup();
 	int choce;

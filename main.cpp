@@ -16,10 +16,10 @@ void print(char player, board Board){
 	for (int j = 0;j<Board.sizey;j++){
 	std::cout << j+1 <<  "  | ";
 		for(int i=0;i<Board.sizex;i++){
-			if (Board.board[i][j] == ' '){
+			if (Board.board[i][j].player == ' '){
 				std::cout << "t   | "; 
 			}else{
-				std::cout << Board.board[i][j] << " | ";
+				std::cout << Board.board[i][j].player << " | ";
 			}
 		}
 		std::cout << std::endl << "  " << line << std::endl;

@@ -7,39 +7,51 @@ board setup(){
 
 	for(int j=0;j++;j<Board.sizey){
 		for(int i=0;i++;i<Board.sizex){
-			Board.board[i][j]=' ';
+			Board.board[i][j].player=' ';
 		}
 	}
 	
-	Board.board[0][0] = 'w';
-	Board.board[2][0] = 'w';
-	Board.board[4][0] = 'w';
-	Board.board[6][0] = 'w';
-	Board.board[1][1] = 'w';
-	Board.board[3][1] = 'w';
-	Board.board[5][1] = 'w';
-	Board.board[7][1] = 'w';
-	Board.board[0][2] = 'w';
-	Board.board[2][2] = 'w';
-	Board.board[4][2] = 'w';
-	Board.board[6][2] = 'w';
+	Board.board[0][0].player = 'w';
+	Board.board[2][0].player = 'w';
+	Board.board[4][0].player = 'w';
+	Board.board[6][0].player = 'w';
+	Board.board[1][1].player = 'w';
+	Board.board[3][1].player = 'w';
+	Board.board[5][1].player = 'w';
+	Board.board[7][1].player = 'w';
+	Board.board[0][2].player = 'w';
+	Board.board[2][2].player = 'w';
+	Board.board[4][2].player = 'w';
+	Board.board[6][2].player = 'w';
 
-	Board.board[1][5] = 'b';
-	Board.board[3][5] = 'b';
-	Board.board[5][5] = 'b';
-	Board.board[7][5] = 'b';
-	Board.board[0][6] = 'b';
-	Board.board[2][6] = 'b';
-	Board.board[4][6] = 'b';
-	Board.board[6][6] = 'b';
-	Board.board[1][7] = 'b';
-	Board.board[3][7] = 'b';
-	Board.board[5][7] = 'b';
-	Board.board[7][7] = 'b';
+	Board.board[1][5].player = 'b';
+	Board.board[3][5].player = 'b';
+	Board.board[5][5].player = 'b';
+	Board.board[7][5].player = 'b';
+	Board.board[0][6].player = 'b';
+	Board.board[2][6].player = 'b';
+	Board.board[4][6].player = 'b';
+	Board.board[6][6].player = 'b';
+	Board.board[1][7].player = 'b';
+	Board.board[3][7].player = 'b';
+	Board.board[5][7].player = 'b';
+	Board.board[7][7].player = 'b';
 	return Board;
 }
 
-bool allowed(board Board){
+bool allowed(board Board, bool isWhite, play start, play end){
+	int dir = 1;
+	char player;
+	if(isWhite==false){
+		dir=-1;
+		player='b';
+	}else{player='w';}
+
+	
+	if(Board.board[start.x][start.y].player!=player){
+		return false;	
+	}
+	
 	return true;
 }
 
@@ -55,10 +67,10 @@ int checkwin(board Board){
 			if(white>0 && black>0){
 				return 0;
 			}
-			if(Board.board[i][j] == 'w'){
+			if(Board.board[i][j].player == 'w'){
 				white+=1;	
 			}
-			else if(Board.board[i][j] == 'w'){ 
+			else if(Board.board[i][j].player == 'w'){ 
 				black+=1;
 			}
 		}
@@ -70,6 +82,14 @@ int checkwin(board Board){
 	}return 0;
 }
 
+board move(board Board, play start, play end){
+
+	Board.board[end.x][end.y]=Board.board[start.x][start.y];
+	Board.board[start.x][start.y].player==' ';
+
+	return Board;
+}
+
 int checkers(){
 	board Board;
 	Board = setup();
@@ -78,16 +98,24 @@ int checkers(){
 	bool running;
 	bool isWhite = true;
 	bool finished = false;
+	bool allow= false;
 	int check;
+	play start;
+	play end;
 	while(running == true){
 
 		std::cout << "please input start peace";
-		input(Board.sizex, Board.sizey);				
+		start=input(Board.sizex, Board.sizey);				
 				
 		std::cout << "please enter move";
-		input(Board.sizex, Board.sizey);
+		end=input(Board.sizex, Board.sizey);
 		
-
+		//checks allowed
+		allow = allowed(Board, isWhite, start, end);
+		if(allow==true){
+		
+		//moves the peice
+		Board=move(Board, start, end);
 
 		//checks win
 		check = checkwin(Board);
@@ -103,8 +131,8 @@ int checkers(){
 			if(isWhite == true){isWhite = false;} 
 			else {isWhite = false;}
 		}
+		}
 	}
 	
-
 	return 0;
 }

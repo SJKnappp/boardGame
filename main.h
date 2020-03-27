@@ -1,8 +1,14 @@
 #include <iostream>
 #include <string>
 
+
+struct piece{
+	char player;
+	char peice;
+};
+
 struct board{
-	char board[19][19];
+	piece board[19][19];
 	char p1;
 	char p2;
 	int sizex;
@@ -13,6 +19,8 @@ struct play{
 	int x;
 	int y;
 };
+
+
 
 void print(char player, board Board);
 play input(int xmax, int ymax);

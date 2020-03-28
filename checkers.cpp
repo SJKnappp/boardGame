@@ -42,22 +42,36 @@ board setup(){
 bool allowed(board Board, bool isWhite, play start, play end){
 	int dir = 1;
 	char player;
+	bool allow = false;
 	if(isWhite==false){
 		dir=-1;
 		player='b';
-	}else{player='w';}
-
-	
-	if(Board.board[start.x][start.y].player!=player){
-		return false;	
+	}else{
+		player='w';
 	}
-	
-	return true;
+
+	//checks starts at player location
+	if(Board.board[start.x][start.y].player!=player){return false;}
+	//checks end move is free
+	if(Board.board[end.x][end.y].player==' '){return false;}
+	//moves in diagonals
+	if(abs(start.x-end.x)!=abs(start.y-end.y)){return false;}
+	//checks moving no more than 2
+	if(abs(start.x-end.x)>2){return false;}
+	//checks middle if moving 2
+	if(abs(start.x-end.x)==2){
+		if(Board.board[start.x+1][start.y+dir].player!=player){}
+		else if(Board.board[start.x-1][start.y+dir].player!=player){}
+		else{return false;}
+	}
+
+	return allow;
 }
 
 //checks victory condition
 int checkwin(board Board){
 
+	//A
 	//counters for how many pices
 	int white=0;
 	int black=0;

@@ -8,17 +8,20 @@ void print(char player, board Board){
 		line.append("-");
 	}
 
+	char temp='a';
+	std::cout<<"  ";
 	for (int i=0;i<Board.sizex;i++){
-		std::cout << "   " << i+1;
+		std::cout << "   " << temp;
+		temp+=1;
 	}
-	std::cout << std::endl;
+	std::cout <<std::endl<<std::endl;
 
 	for (int j = 0;j<Board.sizey;j++){
 	std::cout << j+1 <<  "  | ";
 		for(int i=0;i<Board.sizex;i++){
 			std::cout << Board.board[i][j].player << " | ";
 		}
-		std::cout << std::endl << "  " << line << std::endl;
+		std::cout << std::endl << "    " << line << std::endl;
 	}
 	std::cout << std::endl;
 

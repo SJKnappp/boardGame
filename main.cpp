@@ -46,7 +46,7 @@ play input(int xmax, int ymax){
 				break;
 			}
 		}
-		std::cout << "input failed please retry";
+		std::cout << "input failed please retry: ";
 		std::cin >> move;
 	}
 	return Play;
@@ -56,6 +56,7 @@ int menu(){
 
 	int val;
 	std::cout << "choses your game" << std::endl;
+	std::cout<<"1-checkers"<<std::endl;
 	std::cin >> val;
 	return val;
 

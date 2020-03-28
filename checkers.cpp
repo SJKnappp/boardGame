@@ -49,21 +49,22 @@ bool allowed(board Board, bool isWhite, play start, play end){
 		player='b';
 	}else{
 		player='w';
+		std::cout<<"test";
 	}
 
 	//checks starts at player location
-	if(Board.board[start.x][start.y].player!=player){return false;}
+	if(Board.board[start.x][start.y].player!=player){std::cout<<"1";return false;std::cout<<"1";}
 	//checks end move is free
-	if(Board.board[end.x][end.y].player==' '){return false;}
+	if(Board.board[end.x][end.y].player!=' '){std::cout<<"2";return false;std::cout<<"2";}
 	//moves in diagonals
-	if(abs(start.x-end.x)!=abs(start.y-end.y)){return false;}
+	if(abs(start.x-end.x)!=abs(start.y-end.y)){std::cout<<"3";return false;std::cout<<"3";}
 	//checks moving no more than 2
-	if(abs(start.x-end.x)>2){return false;}
+	if(abs(start.x-end.x)>2){std::cout<<"4";return false;}
 	//checks middle if moving 2
 	if(abs(start.x-end.x)==2){
 		if(Board.board[start.x+1][start.y+dir].player!=player){}
 		else if(Board.board[start.x-1][start.y+dir].player!=player){}
-		else{return false;}
+		else{std::cout<<"5";return false;}
 	}
 
 	return true;
@@ -119,15 +120,17 @@ int checkers(){
 	play end;
 	while(running == true){
 
-		std::cout << "please input start peace";
+		std::cout << "please input start peace: ";
 		start=input(Board.sizex, Board.sizey);				
 				
-		std::cout << "please enter move";
+		std::cout << "please enter move: ";
 		end=input(Board.sizex, Board.sizey);
 		
 		//checks allowed
 		allow = allowed(Board, isWhite, start, end);
+		std::cout<<allow<<" allow";
 		if(allow==true){
+			std::cout<<"Test";
 			if(abs(start.x-end.x)==1){finished=true;}	
 			//moves the peice
 			Board=move(Board, start, end);

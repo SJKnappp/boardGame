@@ -5,12 +5,14 @@ board setup(){
 	Board.sizex = 8;
 	Board.sizey = 8;
 
-	for(int j=0;j++;j<Board.sizey){
-		for(int i=0;i++;i<Board.sizex){
+	std::cout<<Board.sizex;
+
+	for(int j=0;j<Board.sizey;j++){
+		for(int i=0;i<Board.sizex;i++){
 			Board.board[i][j].player=' ';
 		}
 	}
-	
+		
 	Board.board[0][0].player = 'w';
 	Board.board[2][0].player = 'w';
 	Board.board[4][0].player = 'w';
@@ -42,7 +44,6 @@ board setup(){
 bool allowed(board Board, bool isWhite, play start, play end){
 	int dir = 1;
 	char player;
-	bool allow = false;
 	if(isWhite==false){
 		dir=-1;
 		player='b';
@@ -65,7 +66,7 @@ bool allowed(board Board, bool isWhite, play start, play end){
 		else{return false;}
 	}
 
-	return allow;
+	return true;
 }
 
 //checks victory condition
@@ -84,7 +85,7 @@ int checkwin(board Board){
 			if(Board.board[i][j].player == 'w'){
 				white+=1;	
 			}
-			else if(Board.board[i][j].player == 'w'){ 
+			else if(Board.board[i][j].player == 'b'){ 
 				black+=1;
 			}
 		}
@@ -109,7 +110,7 @@ int checkers(){
 	Board = setup();
 	print('w', Board);
 
-	bool running;
+	bool running=true;
 	bool isWhite = true;
 	bool finished = false;
 	bool allow= false;
@@ -127,24 +128,27 @@ int checkers(){
 		//checks allowed
 		allow = allowed(Board, isWhite, start, end);
 		if(allow==true){
-		
-		//moves the peice
-		Board=move(Board, start, end);
+			if(abs(start.x-end.x)==1){finished=true;}	
+			//moves the peice
+			Board=move(Board, start, end);
 
-		//checks win
-		check = checkwin(Board);
-		if(check==1){
-			std::cout<<"black win"<<std::endl;
-		}
-		if(check==2){
-			std::cout<<"white win"<<std::endl;
-		}
+			//checks win
+			check = checkwin(Board);
+			if(check==1){
+				std::cout<<"black win"<<std::endl;
+				return 0;
+			}
+			if(check==2){
+				std::cout<<"white win"<<std::endl;
+				return 0;
+			}
 
-		//last check if finished == true change player
-		if (finished == true){
-			if(isWhite == true){isWhite = false;} 
-			else {isWhite = false;}
-		}
+			//last check if finished == true change player
+			if (finished == true){
+				if(isWhite == true){isWhite = false;} 
+				else {isWhite = false;}
+				print('w', Board);
+			}
 		}
 	}
 	

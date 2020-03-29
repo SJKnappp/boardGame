@@ -45,16 +45,18 @@ play tui(char player, board Board){
 			break;
 		}
 
+
 		if(moved==true){
 			moved=false;
 			mvprintw(0, 0, "player %c", player);
 			std::string line;
-			for (int i=0;i<Board.sizex*3+Board.sizex;i++){
-				line.append("-");
+			for (int i=0;i<Board.sizex*3+Board.sizex+1;i++){
+				if(i%4==0){line.append("+");}
+				else{line.append("-");}
 			}
 			line.append("\0");
 
-			mvprintw(startgrid[1]-1, startgrid[0], "%s", line.c_str());
+			mvprintw(startgrid[1]-1, startgrid[0]-1, "%s", line.c_str());
 
 			char temp='a';
 			char val ='1';
@@ -69,7 +71,7 @@ play tui(char player, board Board){
 					if(i==grid[0]&&j==grid[1]){mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "H |");}
 					else{mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "%c%s", Board.board[i][j].player, " |");}
 				}
-				mvprintw(startgrid[1]+2*j+1, startgrid[0], "%s", line.c_str());
+				mvprintw(startgrid[1]+2*j+1, startgrid[0]-1, "%s", line.c_str());
 			}
 			refresh();
 		}

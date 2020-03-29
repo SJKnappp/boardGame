@@ -118,7 +118,7 @@ int checkers(){
 	play end;
 	
 	//prints intial state
-	print(currentPlayer, Board);
+	//print(currentPlayer, Board);
 
 	while(running == true){
 
@@ -155,7 +155,7 @@ int checkers(){
 				if(isWhite == true){isWhite = false;} 
 				else {isWhite = true;}
 				if(currentPlayer=='w'){currentPlayer='b';}else{currentPlayer='w';}
-				print(currentPlayer, Board);
+				//print(currentPlayer, Board);
 			}
 		}
 	}

@@ -1,35 +1,6 @@
 #include "main.h"
 #include "checkers.cpp"
 
-void print(char player, board Board){
-	
-	std::cout << std::string(100, '\n');
-
-	std::cout << "player " << player << std::endl << std::endl;
-	std::string line;
-	for (int i=0;i<Board.sizex*3+Board.sizex;i++){
-		line.append("-");
-	}
-
-	char temp='a';
-	std::cout<<"  ";
-	for (int i=0;i<Board.sizex;i++){
-		std::cout << "   " << temp;
-		temp+=1;
-	}
-	std::cout <<std::endl<<std::endl;
-
-	for (int j = 0;j<Board.sizey;j++){
-	std::cout << j+1 <<  "  | ";
-		for(int i=0;i<Board.sizex;i++){
-			std::cout << Board.board[i][j].player << " | ";
-		}
-		std::cout << std::endl << "    " << line << std::endl;
-	}
-	std::cout << std::endl;
-
-}
-
 play tui(char player, board Board){
 	clear();
 	play Move;
@@ -38,7 +9,7 @@ play tui(char player, board Board){
 	bool accept=false;
 	bool moved=true;
 	bool first = true;
-	char move;
+	char move=' ';
 
 	WINDOW *win =newwin(30, 30, 20, 20);
 
@@ -64,6 +35,11 @@ play tui(char player, board Board){
 			if (grid[0]<7){grid[0]+=1;}
 			moved=true;
 			break;
+		case '\n':
+			accept=true;
+			Move.x=grid[0];
+			Move.y=grid[1];
+			break;
 		default:
 			break;
 		}
@@ -71,16 +47,17 @@ play tui(char player, board Board){
 		if(moved==true){
 			moved=false;
 			mvprintw(0, 0, "player %c", player);
-			std::string line;
+			char line[Board.sizex*3+Board.sizex+1];
 			for (int i=0;i<Board.sizex*3+Board.sizex;i++){
-				line.append("-");
+				line[Board.sizex*3+Board.sizex]='-';
 			}
+			line[Board.sizex*3+Board.sizex]='\0';
 
 			char temp='a';
 			printw("  ");
 			for (int i=0;i<Board.sizex;i++){
 				mvprintw(2, i, "   %c", temp);
-				temp+=1;
+				temp+=1;	
 			}
 			printw("\n\n");
 
@@ -90,40 +67,16 @@ play tui(char player, board Board){
 				val+=1;
 				for(int i=0;i<Board.sizex;i++){
 				
-					if(i==grid[0]&&j==grid[1]){mvprintw(2*j+3, 5*i+3, "H |");}
-					else{mvprintw(2*j+3, 5*i+3, "%c%s", Board.board[i][j].player, " |");}
+					if(i==grid[0]&&j==grid[1]){mvprintw(2*j+3, 4*i+3, "H |");}
+					else{mvprintw(2*j+3, 4*i+3, "%c%s", Board.board[i][j].player, " |");}
 				}
-				mvprintw(2*j+4, 0, "    %s", line);
+				mvprintw(2*j+4, 0, "    ");
+				printw("%s", line);
 			}
 			refresh();
 		}
 	}
 	return Move;
-}
-
-play input(int xmax, int ymax){
-	play Play;
-	std::string move;
-	std::cin >> move;
-	bool check = true;
-	while(check ==true){
-		if(move.length() == 2){
-			Play.x = move.at(0)-97;
-			Play.y = move.at(1)-49;
-			if (Play.x >= 0 && Play.x < xmax && Play.y >=0 && Play.y < ymax){
-				break;
-			}
-		}else if(move.length() == 3){
-			Play.x = move.at(0)-97;
-			Play.y = 10*(move.at(1)-49) + move.at(2)-49;
-			if (Play.x >= 0 && Play.x < xmax && Play.y >=0 && Play.y < ymax){
-				break;
-			}
-		}
-		std::cout << "input failed please retry: ";
-		std::cin >> move;
-	}
-	return Play;
 }
 
 char menu(){

@@ -51,18 +51,18 @@ bool allowed(board Board, bool isWhite, play start, play end){
 	}
 
 	//checks starts at player location
-	if(Board.board[start.x][start.y].player!=player){std::cout<<"1";return false;std::cout<<"1";}
+	if(Board.board[start.x][start.y].player!=player){printw("1");return false;}
 	//checks end move is free
-	if(Board.board[end.x][end.y].player!=' '){std::cout<<"2";return false;std::cout<<"2";}
+	if(Board.board[end.x][end.y].player!=' '){printw("2");return false;}
 	//moves in diagonals
-	if(abs(start.x-end.x)!=abs(start.y-end.y)){std::cout<<"3";return false;std::cout<<"3";}
+	if(abs(start.x-end.x)!=abs(start.y-end.y)){printw("3");return false;}
 	//checks moving no more than 2
-	if(abs(start.x-end.x)>2){std::cout<<"4";return false;}
+	if(abs(start.x-end.x)>2){printw("4");return false;}
 	//checks middle if moving 2
 	if(abs(start.x-end.x)==2){
 		if(Board.board[start.x+1][start.y+dir].player==oppo){}
 		else if(Board.board[start.x-1][start.y+dir].player!=oppo){}
-		else{std::cout<<"5";return false;}
+		else{printw("5");return false;}
 	}
 
 	return true;
@@ -122,16 +122,19 @@ int checkers(){
 
 	while(running == true){
 
-		std::cout << "please input start peace: ";
+		printw("please input start peace: ");
 		//start=input(Board.sizex, Board.sizey);				
 		start=tui(currentPlayer, Board);
-		std::cout << "please enter move: ";
+		clear();
+		printw("please enter move: ");
 		//end=input(Board.sizex, Board.sizey);
 		end=tui(currentPlayer, Board);
 		
 		//checks allowed
+		clear();
 		allow = allowed(Board, isWhite, start, end);
-		std::cout<<allow<<" allow";
+		printw(" allow");
+		getch();
 		if(allow==true){
 			std::cout<<"Test";
 			if(abs(start.x-end.x)==1){finished=true;}	
@@ -151,6 +154,7 @@ int checkers(){
 
 			//last check if finished == true change player
 			if (finished == true){
+				printw("test");getch();
 				finished=false;
 				if(isWhite == true){isWhite = false;} 
 				else {isWhite = true;}

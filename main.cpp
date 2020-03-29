@@ -5,6 +5,7 @@ play tui(char player, board Board){
 	clear();
 	play Move;
 	int grid[2]={0, 0};
+	int startgrid[2]={4, 4};
 	int current[2]={0, 0};
 	bool accept=false;
 	bool moved=true;
@@ -35,7 +36,7 @@ play tui(char player, board Board){
 			if (grid[0]<7){grid[0]+=1;}
 			moved=true;
 			break;
-		case '\n':
+		case '\n': //return pressed
 			accept=true;
 			Move.x=grid[0];
 			Move.y=grid[1];
@@ -47,31 +48,28 @@ play tui(char player, board Board){
 		if(moved==true){
 			moved=false;
 			mvprintw(0, 0, "player %c", player);
-			char line[Board.sizex*3+Board.sizex+1];
+			std::string line;
 			for (int i=0;i<Board.sizex*3+Board.sizex;i++){
-				line[Board.sizex*3+Board.sizex]='-';
+				line.append("-");
 			}
-			line[Board.sizex*3+Board.sizex]='\0';
+			line.append("\0");
+
+			mvprintw(startgrid[1]-1, startgrid[0], "%s", line.c_str());
 
 			char temp='a';
-			printw("  ");
-			for (int i=0;i<Board.sizex;i++){
-				mvprintw(2, i, "   %c", temp);
-				temp+=1;	
-			}
-			printw("\n\n");
-
+			char val ='1';
 			for (int j = 0;j<Board.sizey;j++){
-				char val ='1';
-				mvprintw(0, 0, &val, "  | ");
+				
+				mvprintw(startgrid[1]+2*j, startgrid[0]-3, "%c%s", val, " |");
+				mvprintw(startgrid[1]-2, startgrid[0]+4*j+1, "%c", temp);
 				val+=1;
+				temp+=1;
 				for(int i=0;i<Board.sizex;i++){
 				
-					if(i==grid[0]&&j==grid[1]){mvprintw(2*j+3, 4*i+3, "H |");}
-					else{mvprintw(2*j+3, 4*i+3, "%c%s", Board.board[i][j].player, " |");}
+					if(i==grid[0]&&j==grid[1]){mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "H |");}
+					else{mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "%c%s", Board.board[i][j].player, " |");}
 				}
-				mvprintw(2*j+4, 0, "    ");
-				printw("%s", line);
+				mvprintw(startgrid[1]+2*j+1, startgrid[0], "%s", line.c_str());
 			}
 			refresh();
 		}

@@ -1,5 +1,6 @@
 #include "main.h"
 #include "checkers.cpp"
+#include "tic.cpp"
 
 play tui(char player, board Board){
 	clear();
@@ -97,10 +98,14 @@ int main(){
 	Board = setup();
 	char choce;
 	choce = menu();
-	switch(choce)
-		case '1':
-			checkers();
-
+	switch(choce){
+	case '1':
+		checkers();
+		break;
+	case '2':
+		tic::tac();
+		break;
+	}
 	endwin();
 	return 0;
 }

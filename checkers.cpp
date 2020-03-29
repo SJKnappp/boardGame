@@ -133,10 +133,8 @@ int checkers(){
 		//checks allowed
 		clear();
 		allow = allowed(Board, isWhite, start, end);
-		printw(" allow");
 		getch();
 		if(allow==true){
-			std::cout<<"Test";
 			if(abs(start.x-end.x)==1){finished=true;}	
 			//moves the peice
 			Board=move(Board, start, end);
@@ -154,7 +152,6 @@ int checkers(){
 
 			//last check if finished == true change player
 			if (finished == true){
-				printw("test");getch();
 				finished=false;
 				if(isWhite == true){isWhite = false;} 
 				else {isWhite = true;}

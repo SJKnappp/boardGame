@@ -43,25 +43,25 @@ play tui(char player, board Board){
 	WINDOW *win =newwin(30, 30, 20, 20);
 
 	while(accept==false){
-		mvprintw(0, 0, "%c %c", grid[0], grid[1]);
+		mvprintw(1, 0, "%d %d", grid[0], grid[1]);
 		if(first==true){first=false;}
 		else{move =getch();}
 		switch (move)
 		{
 		case 'h': //left
-			if (grid[0]>0){grid[0]-1;}
+			if (grid[0]>0){grid[0]-=1;}
 			moved=true;
 			break;
 		case 'j': //down
-			if (grid[1]<7){grid[1]+1;}
+			if (grid[1]<7){grid[1]+=1;}
 			moved=true;
 			break;
 		case 'k': //up
-			if (grid[1]>0){grid[1]-1;}
+			if (grid[1]>0){grid[1]-=1;}
 			moved=true;
 			break;
 		case 'l': //right
-			if (grid[1]<7){grid[0]+1;}
+			if (grid[0]<7){grid[0]+=1;}
 			moved=true;
 			break;
 		default:

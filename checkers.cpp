@@ -1,15 +1,13 @@
-
 board setup(){
 	board Board;
 
 	Board.sizex = 8;
-	Board.sizey = 8;
-
-	std::cout<<Board.sizex;
+	Board.sizey = 8;	
 
 	for(int j=0;j<Board.sizey;j++){
 		for(int i=0;i<Board.sizex;i++){
 			Board.board[i][j].player=' ';
+			Board.board[i][j].peice=' ';
 		}
 	}
 		
@@ -44,12 +42,12 @@ board setup(){
 bool allowed(board Board, bool isWhite, play start, play end){
 	int dir = 1;
 	char player;
+	char oppo;
 	if(isWhite==false){
 		dir=-1;
-		player='b';
+		player='b';oppo='w';
 	}else{
-		player='w';
-		std::cout<<"test";
+		player='w';oppo='b';
 	}
 
 	//checks starts at player location
@@ -62,8 +60,8 @@ bool allowed(board Board, bool isWhite, play start, play end){
 	if(abs(start.x-end.x)>2){std::cout<<"4";return false;}
 	//checks middle if moving 2
 	if(abs(start.x-end.x)==2){
-		if(Board.board[start.x+1][start.y+dir].player!=player){}
-		else if(Board.board[start.x-1][start.y+dir].player!=player){}
+		if(Board.board[start.x+1][start.y+dir].player==oppo){}
+		else if(Board.board[start.x-1][start.y+dir].player!=oppo){}
 		else{std::cout<<"5";return false;}
 	}
 
@@ -99,32 +97,37 @@ int checkwin(board Board){
 }
 
 board move(board Board, play start, play end){
-
+	if(abs(start.x-end.x)==2){Board.board[start.x+(end.x-start.x)/2][start.y+(end.y-start.y)/2].player=' ';}
 	Board.board[end.x][end.y]=Board.board[start.x][start.y];
-	Board.board[start.x][start.y].player==' ';
-
+	Board.board[start.x][start.y].player=' ';
 	return Board;
 }
 
 int checkers(){
 	board Board;
 	Board = setup();
-	print('w', Board);
+	
 
 	bool running=true;
 	bool isWhite = true;
 	bool finished = false;
 	bool allow= false;
 	int check;
+	char currentPlayer='w';
 	play start;
 	play end;
+	
+	//prints intial state
+	print(currentPlayer, Board);
+
 	while(running == true){
 
 		std::cout << "please input start peace: ";
-		start=input(Board.sizex, Board.sizey);				
-				
+		//start=input(Board.sizex, Board.sizey);				
+		start=tui(currentPlayer, Board);
 		std::cout << "please enter move: ";
-		end=input(Board.sizex, Board.sizey);
+		//end=input(Board.sizex, Board.sizey);
+		end=tui(currentPlayer, Board);
 		
 		//checks allowed
 		allow = allowed(Board, isWhite, start, end);
@@ -148,9 +151,11 @@ int checkers(){
 
 			//last check if finished == true change player
 			if (finished == true){
+				finished=false;
 				if(isWhite == true){isWhite = false;} 
-				else {isWhite = false;}
-				print('w', Board);
+				else {isWhite = true;}
+				if(currentPlayer=='w'){currentPlayer='b';}else{currentPlayer='w';}
+				print(currentPlayer, Board);
 			}
 		}
 	}

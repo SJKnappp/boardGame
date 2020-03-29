@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <ncurses.h>
 
 struct piece{
 	char player;
@@ -24,4 +25,5 @@ struct play{
 
 void print(char player, board Board);
 play input(int xmax, int ymax);
-int menu();
+play tui(char player, board Board);
+char menu();

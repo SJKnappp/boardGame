@@ -4,13 +4,13 @@
 
 play tui(char player, board Board){
 
+	//colours defined here
 	start_color();
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
 	init_pair(2, COLOR_BLUE, COLOR_BLACK);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 
 	attron(COLOR_PAIR(1));
-
 
 	clear();
 	play Move;
@@ -99,7 +99,7 @@ char menu(){
 
 	char val;
 	printw("choses your game\n");
-	printw("1-checkers\n");
+	printw("1-checkers 2-tic-tac-toe\n");
 	val=getch();
 	return val;
 }

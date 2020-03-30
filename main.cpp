@@ -3,6 +3,15 @@
 #include "tic.cpp"
 
 play tui(char player, board Board){
+
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_BLACK);
+	init_pair(2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+
+	attron(COLOR_PAIR(1));
+
+
 	clear();
 	play Move;
 	int grid[2]={0, 0};
@@ -69,8 +78,14 @@ play tui(char player, board Board){
 				temp+=1;
 				for(int i=0;i<Board.sizex;i++){
 				
-					if(i==grid[0]&&j==grid[1]){mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "H |");}
-					else{mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "%c%s", Board.board[i][j].player, " |");}
+					if(i==grid[0]&&j==grid[1]){attron(COLOR_PAIR(3));
+						mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "H");}
+					else{if(Board.board[i][j].player==' ' || Board.board[i][j].player=='w'){attron(COLOR_PAIR(1));}
+						else{attron(COLOR_PAIR(2));}
+						mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "%c", Board.board[i][j].player);}
+					attron(COLOR_PAIR(1));
+					mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+3,"|");
+
 				}
 				mvprintw(startgrid[1]+2*j+1, startgrid[0]-1, "%s", line.c_str());
 			}

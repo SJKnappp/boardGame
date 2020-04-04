@@ -84,7 +84,7 @@ namespace snake{
 
         bool running=true;
         while(running==true){
-            usleep(10000);
+            usleep(100000);
             if(foodEx==false){
                 snake.Board=food(snake.Board);
                 foodEx=true;

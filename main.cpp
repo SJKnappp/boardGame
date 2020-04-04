@@ -31,7 +31,6 @@ play tui(char player, board Board){
 		//refresh();
 		if(first==true){first=false;}
 		else{move = getch();}
-		printw("fuck this");
 		switch (move)
 		{
 		case 'h': //left
@@ -65,10 +64,8 @@ play tui(char player, board Board){
 			break;
 		}
 
-		printw("cunt");
 		if(true){
 			//refresh();
-			printw("fuck you two");
 			moved=false;
 			mvprintw(0, 0, "player test%c", player);
 			std::string line;

@@ -28,15 +28,27 @@ namespace snake{
     position update(position snake, int dir){
         
         play headold = snake.snake.at(0);
+        play headnew;
+        int x=0, y=0;
+        
         
         if(dir==1){
-            snake.Board.board[snake.head.x+1][snake.head.y].player='s';
+            x=1;
         }else if(dir==2){
-            snake.Board.board[snake.head.x-1][snake.head.y].player='s';
+            x=-1;
         }else if(dir==3){
-            snake.Board.board[snake.head.x][snake.head.y+1].player='s';
+            y=+1;
         }else if(dir==4){
-            snake.Board.board[snake.head.x][snake.head.y-1].player='s';
+            y=-1;
+        }
+        headnew.x = x; headnew.y=y;
+        snake.Board.board[x][y].player='s';
+        snake.snake.insert(snake.snake.begin(), headnew);
+
+        if(snake.snake.size()>2){}
+        else{
+            headold=snake.snake.back();
+            snake.Board.board[headold.x][headold.y].player=' ';
         }
 
         return snake;
@@ -76,6 +88,7 @@ namespace snake{
 
         bool running=true;
         while(running==true){
+            usleep(10000);
             if(foodEx==false){snake.Board=food(snake.Board);}
             temp=tui(' ', snake.Board);
             if(temp==0){}

@@ -4,6 +4,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <vector>
+#include <unistd.h>
 
 struct piece{
 	char player;

@@ -54,6 +54,7 @@ namespace snake{
         }
 
         if(snake.Board.board[headnew.x][headnew.y].player=='f'){
+            snake.foodEx=false;
             fed=true;
         }
         snake.Board.board[headnew.x][headnew.y].player='s';
@@ -103,14 +104,14 @@ namespace snake{
         
 
         //food intialise
-        bool foodEx = false;
+        snake.foodEx = false;
 
         bool running=true;
         while(running==true){
             usleep(100000);
-            if(foodEx==false){
+            if(snake.foodEx==false){
                 snake.Board=food(snake.Board);
-                foodEx=true;
+                snake.foodEx=true;
             }
             temp=tui(' ', snake.Board);
             if(temp==0){}

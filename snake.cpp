@@ -2,7 +2,7 @@
 namespace snake{
     position setup(){
         position Snake;
-        Snake.Board.border=true;
+        Snake.Board.border=false;
         Snake.Board.grid=false;
         Snake.Board.imidiate=true;
         Snake.Board.sizex=10;

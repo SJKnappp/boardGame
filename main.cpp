@@ -22,6 +22,12 @@ play tui(char player, board Board){
 	bool moved=true;
 	bool first = true;
 	char move=' ';
+	int row=0;
+	int col=4;
+
+	if(Board.grid==false){
+		col=1;
+	}
 
 	WINDOW *win =newwin(30, 30, 20, 20);
 
@@ -31,7 +37,6 @@ play tui(char player, board Board){
 		mvprintw(1, 0, "%d %d", grid[0], grid[1]);
 		//refresh();
 		move = getch();
-		printw("te");
 		//else{printw("jsjsjs");}
 		
 		switch (move)
@@ -68,7 +73,7 @@ play tui(char player, board Board){
 		}
 		
 		if(moved==true){
-			label:
+			row=0;
 			refresh();
 			moved=false;
 			if(player!=' '){mvprintw(0, 0, "player %c", player);}
@@ -93,20 +98,20 @@ play tui(char player, board Board){
 					temp+=1;
 				}
 				for(int i=0;i<Board.sizex;i++){
-				
+					
 					if(i==grid[0]&&j==grid[1]&&Board.imidiate==false){attron(COLOR_PAIR(3));
-						mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "H");}
+						mvprintw(startgrid[1]+2*j, startgrid[0]+col*i+1, "H");}
 					else{
 						if(Board.board[i][j].player==' ' || Board.board[i][j].player=='w'){attron(COLOR_PAIR(1));}
 						else{attron(COLOR_PAIR(2));}
-						mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+1, "%c", Board.board[i][j].player);
+						mvprintw(startgrid[1]+j+row, startgrid[0]+col*i+1, "%c", Board.board[i][j].player);
 					}
 					attron(COLOR_PAIR(1));
 					//draws seperating lines if grid is turned on
-					if(Board.grid==true){mvprintw(startgrid[1]+2*j, startgrid[0]+4*i+3,"|");}
+					if(Board.grid==true){mvprintw(startgrid[1]+j+row, startgrid[0]+col*i+3,"|");}
 
 				}
-				if(Board.border==true){mvprintw(startgrid[1]+2*j+1, startgrid[0]-1, "%s", line.c_str());}
+				if(Board.border==true){row+=1; mvprintw(startgrid[1]+j+row, startgrid[0]-1, "%s", line.c_str());}
 			}
 			refresh();
 			getch();

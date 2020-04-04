@@ -29,7 +29,7 @@ play tui(char player, board Board){
 		if(player==' '){accept=true; moved=true;}
 		mvprintw(1, 0, "%d %d", grid[0], grid[1]);
 		//refresh();
-		if(first==true){first=false;}
+		if(first==true){first=false; goto label;}
 		else{move = getch();}
 		switch (move)
 		{
@@ -63,11 +63,14 @@ play tui(char player, board Board){
 		default:
 			break;
 		}
-
-		if(true){
-			//refresh();
+		printw("test");
+		if(moved==true){
+			label:
+			refresh();
+			printw("test");
+			refresh();
 			moved=false;
-			mvprintw(0, 0, "player test%c", player);
+			if(player!=' '){mvprintw(0, 0, "player %c", player);}
 			std::string line;
 			for (int i=0;i<Board.sizex*3+Board.sizex+1;i++){
 				if(i%4==0){line.append("+");}
@@ -104,7 +107,8 @@ play tui(char player, board Board){
 				}
 				if(Board.border==true){mvprintw(startgrid[1]+2*j+1, startgrid[0]-1, "%s", line.c_str());}
 			}
-			
+			refresh();
+			getch();
 		}
 	}
 	return Move;

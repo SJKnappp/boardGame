@@ -3,7 +3,7 @@ namespace snake{
     position setup(){
         position snake;
         board Board;
-        Board.border=true;
+        Board.border=false;
         Board.grid=false;
         Board.imidiate=true;
         Board.sizex=10;
@@ -16,7 +16,7 @@ namespace snake{
             }
         }
 
-        Board.board[Board.sizex/2][Board.sizey/2].peice='s';
+        Board.board[Board.sizex/2][Board.sizey/2].player='s';
         snake.Board=Board;
 
         snake.head.x=Board.sizex/2; snake.tail.y=Board.sizey/2;
@@ -57,7 +57,7 @@ namespace snake{
     board food(board Board){
         int x;
         int y;
-        bool put=true;
+        bool put=false;
 
         while(put==false){
             x=rand() % Board.sizex;
@@ -65,7 +65,7 @@ namespace snake{
 
             //places food 
             if (Board.board[x][y].player==' '){
-                Board.board[x][y].player=='f';
+                Board.board[x][y].player='f';
                 put = true;
             }
         }
@@ -84,12 +84,15 @@ namespace snake{
         
 
         //food intialise
-        bool foodEx =false;
+        bool foodEx = false;
 
         bool running=true;
         while(running==true){
             usleep(10000);
-            if(foodEx==false){snake.Board=food(snake.Board);}
+            if(foodEx==false){
+                snake.Board=food(snake.Board);
+                foodEx=true;
+            }
             temp=tui(' ', snake.Board);
             if(temp==0){}
             else{Move=temp;}

@@ -2,11 +2,12 @@
 namespace snake{
     position setup(){
         position Snake;
-        Snake.Board.border=false;
+        Snake.Board.border=true;
         Snake.Board.grid=false;
         Snake.Board.imidiate=true;
         Snake.Board.sizex=10;
         Snake.Board.sizey=10;
+        Snake.lost =false;
         
 
         for (int j=0;j<Snake.Board.sizey;j++){
@@ -39,6 +40,12 @@ namespace snake{
             y=-1;
         }
         headnew.x = x+headold.x; headnew.y=y+headold.y;
+
+        if(headnew.x<0 || headnew.x>snake.Board.sizex || headnew.y<0 || headnew.y>snake.Board.sizex){
+            snake.lost=true;
+            return snake;
+        }
+
         snake.Board.board[headnew.x][headnew.y].player='s';
         snake.snake.insert(snake.snake.begin(), headnew);
 
@@ -96,6 +103,8 @@ namespace snake{
             else if(Move.x == -1 && Move.y == 0){snake=update(snake, 2);}
             else if(Move.x == 0 && Move.y == 1){snake=update(snake, 3);}
             else if(Move.x == 0 && Move.y == -1){snake=update(snake, 4);}
+
+            if (snake.lost==true){return 0;}
         }
 
         return 0;

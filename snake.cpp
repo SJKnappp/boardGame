@@ -77,7 +77,6 @@ namespace snake{
         position snake = setup();
         play Move;
         play temp;
-        getch();
 
         //reordes the position of the head and the tail
         position pos;

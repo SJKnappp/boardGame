@@ -26,11 +26,14 @@ play tui(char player, board Board){
 	WINDOW *win =newwin(30, 30, 20, 20);
 
 	while(accept==false){
+		if(Board.imidiate==true){nodelay(stdscr, true);}
 		if(player==' '){accept=true; moved=true;}
 		mvprintw(1, 0, "%d %d", grid[0], grid[1]);
 		//refresh();
-		if(first==true){first=false; goto label;}
-		else{move = getch();}
+		move = getch();
+		printw("te");
+		//else{printw("jsjsjs");}
+		
 		switch (move)
 		{
 		case 'h': //left
@@ -63,11 +66,9 @@ play tui(char player, board Board){
 		default:
 			break;
 		}
-		printw("test");
+		
 		if(moved==true){
 			label:
-			refresh();
-			printw("test");
 			refresh();
 			moved=false;
 			if(player!=' '){mvprintw(0, 0, "player %c", player);}

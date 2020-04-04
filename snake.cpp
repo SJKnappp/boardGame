@@ -46,8 +46,24 @@ namespace snake{
             return snake;
         }
 
+        bool fed=false;
+
+        if(snake.Board.board[headnew.x][headnew.y].player=='s'){
+            snake.lost=true;
+            return snake;
+        }
+
+        if(snake.Board.board[headnew.x][headnew.y].player=='f'){
+            fed=true;
+        }
         snake.Board.board[headnew.x][headnew.y].player='s';
         snake.snake.insert(snake.snake.begin(), headnew);
+
+        if(fed==false){
+            headold=snake.snake.back();
+            snake.Board.board[headold.x][headold.y].player = ' ';
+            snake.snake.pop_back();
+        }
 
         /*if(snake.snake.size()>2){}
         else{

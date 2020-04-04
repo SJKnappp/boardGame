@@ -39,7 +39,7 @@ namespace snake{
             y=-1;
         }
         headnew.x = x+headold.x; headnew.y=y+headold.y;
-        snake.Board.board[x][y].player='s';
+        snake.Board.board[headnew.x][headnew.y].player='s';
         snake.snake.insert(snake.snake.begin(), headnew);
 
         /*if(snake.snake.size()>2){}

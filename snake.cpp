@@ -1,28 +1,25 @@
 #include "snake.h"
 namespace snake{
     position setup(){
-        position snake;
-        board Board;
-        Board.border=false;
-        Board.grid=false;
-        Board.imidiate=true;
-        Board.sizex=10;
-        Board.sizey=10;
+        position Snake;
+        Snake.Board.border=false;
+        Snake.Board.grid=false;
+        Snake.Board.imidiate=true;
+        Snake.Board.sizex=10;
+        Snake.Board.sizey=10;
         
 
-        for (int j=0;j<Board.sizey;j++){
-            for(int i=0;i<Board.sizex;i++){
-                Board.board[i][j].player=' ';
+        for (int j=0;j<Snake.Board.sizey;j++){
+            for(int i=0;i<Snake.Board.sizex;i++){
+                Snake.Board.board[i][j].player=' ';
             }
         }
 
-        Board.board[Board.sizex/2][Board.sizey/2].player='s';
-        snake.Board=Board;
+        Snake.Board.board[Snake.Board.sizex/2][Snake.Board.sizey/2].player='s';
+        play head; head.x = Snake.Board.sizex/2; head.y = Snake.Board.sizey/2;
+        Snake.snake.push_back(head);
 
-        snake.head.x=Board.sizex/2; snake.tail.y=Board.sizey/2;
-        snake.tail.x=-1; snake.tail.y=-1;
-
-        return snake;
+        return Snake;
     }
 
     position update(position snake, int dir){
@@ -41,15 +38,15 @@ namespace snake{
         }else if(dir==4){
             y=-1;
         }
-        headnew.x = x; headnew.y=y;
+        headnew.x = x+headold.x; headnew.y=y+headold.y;
         snake.Board.board[x][y].player='s';
         snake.snake.insert(snake.snake.begin(), headnew);
 
-        if(snake.snake.size()>2){}
+        /*if(snake.snake.size()>2){}
         else{
             headold=snake.snake.back();
             snake.Board.board[headold.x][headold.y].player=' ';
-        }
+        }*/
 
         return snake;
     }

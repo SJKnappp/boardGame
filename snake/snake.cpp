@@ -97,6 +97,7 @@ namespace snake{
         clear();
         position snake = setup();
         play Move;
+        Move.x=0; Move.y=0;
         play temp;
 
         //reordes the position of the head and the tail

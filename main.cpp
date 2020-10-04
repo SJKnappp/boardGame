@@ -1,15 +1,15 @@
 #include "main.h"
-#include "checkers.cpp"
-#include "tic.cpp"
-#include "snake.cpp"
+//#include "checkers.cpp"
+//#include "tic.cpp"
+//#include "snake.cpp"
 
 play tui(char player, board Board){
 	//colours defined here
 	start_color();
 	init_pair(1, COLOR_WHITE, COLOR_BLACK);
-	init_pair(2, COLOR_BLUE, COLOR_BLACK);
-	init_pair(3, COLOR_GREEN, COLOR_BLACK);
-	init_pair(4, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_BLUE, COLOR_YELLOW);
+	init_pair(3, COLOR_BLUE, COLOR_BLUE);
+	init_pair(4, COLOR_RED, COLOR_RED);
 	init_pair(5, COLOR_BLACK, COLOR_RED);
 
 	attron(COLOR_PAIR(1));
@@ -103,6 +103,8 @@ play tui(char player, board Board){
 						mvprintw(startgrid[1]+2*j, startgrid[0]+col*i+1, "H");}
 					else{
 						if(Board.board[i][j].player==' ' || Board.board[i][j].player=='w'){attron(COLOR_PAIR(1));}
+						else if(Board.board[i][j].player=='s'){attron(COLOR_PAIR(3));}
+						else if(Board.board[i][j].player=='f'){attron(COLOR_PAIR(4));}
 						else{attron(COLOR_PAIR(2));}
 						mvprintw(startgrid[1]+j+row, startgrid[0]+col*i+1, "%c", Board.board[i][j].player);
 					}
@@ -124,7 +126,7 @@ char menu(){
 
 	char val;
 	printw("choses your game\n");
-	printw("1-checkers 2-tic-tac-toe 3-snake\n");
+	printw("1-checkers 2-tic-tac-toe 3-snake\nq to quit");
 	val=getch();
 	return val;
 }
@@ -137,17 +139,25 @@ int main(){
 	board Board;
 	Board = setup();
 	char choce;
-	choce = menu();
-	switch(choce){
-	case '1':
-		checkers();
-		break;
-	case '2':
-		tic::tac();
-		break;
-	case '3':
-		snake::snake();
-		break;
+	bool gameing =true;
+	while(gameing==true){
+		clear();
+		nodelay(stdscr, false);
+		choce = menu();
+		switch(choce){
+		case '1':
+			checkers();
+			break;
+		case '2':
+			tic::tac();
+			break;
+		case '3':
+			snake::snake();
+			break;
+		case 'q':
+			gameing=false;
+			break;
+		}
 	}
 	endwin();
 	return 0;

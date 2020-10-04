@@ -6,26 +6,11 @@
 #include <vector>
 #include <unistd.h>
 
-struct piece{
-	char player;
-	char peice;
-};
+#include "checkers/checkers.h"
+#include "snake/snake.h"
+#include "tic/tic.h"
+#include "type.h"
 
-struct board{
-	piece board[19][19];
-	char p1;
-	char p2;
-	int sizex;
-	int sizey;
-	bool grid=true;
-	bool border=true;
-	bool imidiate=false;
-};
-
-struct play{
-	int x;
-	int y;
-};
 inline bool operator==(const play& lhs, const int& rhs){
     return lhs.x ==rhs && lhs.y==rhs;
 }

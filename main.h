@@ -9,7 +9,8 @@
 #include "checkers/checkers.h"
 #include "snake/snake.h"
 #include "tic/tic.h"
-#include "type.h"
+#include "tui/type.h"
+#include "tui/tui.h"
 
 inline bool operator==(const play& lhs, const int& rhs){
     return lhs.x ==rhs && lhs.y==rhs;

@@ -1,4 +1,10 @@
-#include "../type.h"
+#ifndef CHECKERS_H
+#define CHECKERS_H
+
+#include <iostream>
+#include "curses.h"
+#include "../tui/type.h"
+#include "../tui/tui.h"
 
 namespace checkers{
     board setup();
@@ -7,3 +13,5 @@ namespace checkers{
     board move(board Board, play start, play end);
     int checkers();
 }
+
+#endif //CHECKERS_H

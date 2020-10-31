@@ -1,3 +1,5 @@
+#include "tic.h"
+
 namespace tic{
 
     board setup(){

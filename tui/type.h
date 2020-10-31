@@ -1,3 +1,6 @@
+#ifndef TYPE_H
+#define TYPE_H
+
 struct piece{
     char player;
     char peice;
@@ -18,3 +21,5 @@ struct play{
     int x;
     int y;
 };
+
+#endif //TYPE_H

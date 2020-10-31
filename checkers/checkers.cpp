@@ -1,3 +1,5 @@
+#include "checkers.h"
+
 namespace checkers {
     board setup() {
         board Board;

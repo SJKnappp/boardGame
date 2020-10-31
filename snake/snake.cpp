@@ -1,4 +1,5 @@
 #include "snake.h"
+
 namespace snake{
     position setup(){
         position Snake;
@@ -115,7 +116,7 @@ namespace snake{
                 snake.foodEx=true;
             }
             temp=tui(' ', snake.Board);
-            if(temp==0){}
+            if(temp.x==0 && temp.y == 0){}
             else{Move=temp;}
             if(Move.x == 1 && Move.y == 0){snake=update(snake, 1);}
             else if(Move.x == -1 && Move.y == 0){snake=update(snake, 2);}
